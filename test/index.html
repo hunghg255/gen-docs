@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown.min.css" integrity="sha512-30lMQ13MJJk66BfdlnvVnKmP05V7Qt1g6sHyYigDgV8i9M2ENAsXk1U4dVvKUYB6pqb2bVhoxhZsYK08hQpS+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-dark.min.css" integrity="sha512-kAGXrJyEBA7iWiXz6Nl5OBd6J3C5wujoFtWFYYom325fRFTSBZfUG472coKg6cJhAnMVSWpDuyUKKavig4NZzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css" integrity="sha512-kDjsFiusauOzRWlNNk7R5nFRVUPFlZjIqI3F0/DYUO9Uz93R0V4zNfrWGSKFtZvHnTIsoM3GwDaqQBJt8ZVt6w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+  @media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+  .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: 0.25em solid #888;
+}
+
+.markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+  /* Respect people's wishes to not have animations */
+@media (prefers-reduced-motion: reduce) {
+  .twoslash * {
+    transition: none !important;
+  }
+}
+
+/* ===== Hover Info ===== */
+.twoslash:hover .twoslash-hover {
+  border-color: var(--twoslash-border-color);
+}
+
+.twoslash .twoslash-hover {
+  border-bottom: 1px dotted transparent;
+  transition-timing-function: ease;
+  transition: border-color 0.3s;
+  position: relative;
+}
+
+.twoslash .twoslash-hover-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translate(0, 1.2em);
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  transition: opacity 0.3s;
+  border-radius: 4px;
+  padding: 6px 8px;
+  pointer-events: none;
+  z-index: 10;
+  user-select: none;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+
+.twoslash .twoslash-hover:hover .twoslash-hover-info {
+  opacity: 1;
+  pointer-events: auto;
+  user-select: unset;
+}
+
+/* ===== Error Line ===== */
+.twoslash .twoslash-error-line {
+  position: relative;
+  background-color: var(--twoslash-error-bg);
+  border-left: 3px solid var(--twoslash-error-color);
+  color: var(--twoslash-error-color);
+  padding: 6px 6px;
+  margin: 0.2em 0;
+}
+
+.twoslash .twoslash-error {
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23c94824'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+    repeat-x bottom left;
+  padding-bottom: 2px;
+}
+
+/* ===== Popover ===== */
+.twoslash .twoslash-popover {
+  position: relative;
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin: 0 -0.5em;
+  z-index: 9;
+  user-select: none;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+
+.twoslash .twoslash-popover-arrow {
+  position: absolute;
+  top: -5px;
+  left: 1em;
+  border-top: 1px solid var(--twoslash-border-color);
+  border-right: 1px solid var(--twoslash-border-color);
+  background: var(--twoslash-popup-bg);
+  transform: rotate(-45deg);
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+}
+
+/* ===== Completeions ===== */
+.twoslash .twoslash-completions ul {
+  display: inline-block;
+  position: absolute;
+  width: 240px;
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  font-size: 0.8rem;
+  margin: 3px 0 0 -1px;
+  padding: 4px 0 0 0;
+  border-left: 4px solid var(--twoslash-matched-color);
+  z-index: 8;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+.twoslash .twoslash-completions ul::before {
+  background-color: var(--twoslash-cursor-color);
+  width: 2px;
+  position: absolute;
+  top: -1.6em;
+  height: 1.4em;
+  left: -4px;
+  content: ' ';
+}
+.twoslash .twoslash-completions ul li {
+  overflow-x: hidden;
+  padding-left: 4px;
+  margin-bottom: 4px;
+}
+.twoslash .twoslash-completions ul li span {
+  color: var(--twoslash-unmatched-color);
+}
+.twoslash .twoslash-completions ul .deprecated {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+.twoslash .twoslash-completions ul li span.twoslash-completions-matched {
+  color: var(--twoslash-matched-color);
+}
+
+/* ===== Basic ===== */
+.twoslash {
+  --twoslash-border-color: #8885;
+  --twoslash-underline-color: #888;
+  --twoslash-popup-bg: #f8f8f8;
+  --twoslash-popup-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+  --twoslash-matched-color: #2e8f82;
+  --twoslash-unmatched-color: #888;
+  --twoslash-cursor-color: #8888;
+  --twoslash-error-color: #d45656;
+  --twoslash-error-bg: #d4565620;
+}
+
+/* Respect people's wishes to not have animations */
+@media (prefers-reduced-motion: reduce) {
+  .twoslash * {
+    transition: none !important;
+  }
+}
+
+/* ===== Hover Info ===== */
+.twoslash:hover .twoslash-hover {
+  border-color: var(--twoslash-border-color);
+}
+
+.twoslash .twoslash-hover {
+  border-bottom: 1px dotted transparent;
+  transition-timing-function: ease;
+  transition: border-color 0.3s;
+  position: relative;
+}
+
+.twoslash .twoslash-hover-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translate(0, 1.2em);
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  transition: opacity 0.3s;
+  border-radius: 4px;
+  padding: 6px 8px;
+  pointer-events: none;
+  z-index: 10;
+  user-select: none;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+
+.twoslash .twoslash-hover:hover .twoslash-hover-info {
+  opacity: 1;
+  pointer-events: auto;
+  user-select: unset;
+}
+
+/* ===== Error Line ===== */
+.twoslash .twoslash-error-line {
+  position: relative;
+  background-color: var(--twoslash-error-bg);
+  border-left: 3px solid var(--twoslash-error-color);
+  color: var(--twoslash-error-color);
+  padding: 6px 6px;
+  margin: 0.2em 0;
+}
+
+.twoslash .twoslash-error {
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23c94824'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+    repeat-x bottom left;
+  padding-bottom: 2px;
+}
+
+/* ===== Popover ===== */
+.twoslash .twoslash-popover {
+  position: relative;
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin: 0 -0.5em;
+  z-index: 9;
+  user-select: none;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+
+.twoslash .twoslash-popover-arrow {
+  position: absolute;
+  top: -5px;
+  left: 1em;
+  border-top: 1px solid var(--twoslash-border-color);
+  border-right: 1px solid var(--twoslash-border-color);
+  background: var(--twoslash-popup-bg);
+  transform: rotate(-45deg);
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+}
+
+/* ===== Completeions ===== */
+.twoslash .twoslash-completions ul {
+  display: inline-block;
+  position: absolute;
+  width: 240px;
+  background: var(--twoslash-popup-bg);
+  border: 1px solid var(--twoslash-border-color);
+  font-size: 0.8rem;
+  margin: 3px 0 0 -1px;
+  padding: 4px 0 0 0;
+  border-left: 4px solid var(--twoslash-matched-color);
+  z-index: 8;
+  box-shadow: var(--twoslash-popup-shadow);
+}
+.twoslash .twoslash-completions ul::before {
+  background-color: var(--twoslash-cursor-color);
+  width: 2px;
+  position: absolute;
+  top: -1.6em;
+  height: 1.4em;
+  left: -4px;
+  content: ' ';
+}
+.twoslash .twoslash-completions ul li {
+  overflow-x: hidden;
+  padding-left: 4px;
+  margin-bottom: 4px;
+}
+.twoslash .twoslash-completions ul li span {
+  color: var(--twoslash-unmatched-color);
+}
+.twoslash .twoslash-completions ul .deprecated {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+.twoslash .twoslash-completions ul li span.twoslash-completions-matched {
+  color: var(--twoslash-matched-color);
+}
+
+  .has-diff {
+  position: relative;
+}
+.has-diff .line {
+  display: inline-block;
+  width: 100%;
+  height: 1.2em;
+}
+.has-diff .diff {
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+.has-diff .diff.add {
+  background-color: #0505;
+}
+.has-diff .diff.remove {
+  background-color: #8005;
+}
+.has-diff .diff:before {
+  position: absolute;
+  left: 5px;
+}
+.has-diff .diff.add:before {
+  content: '+';
+  color: green;
+}
+.has-diff .diff.remove:before {
+  content: '-';
+  color: red;
+}
+
+  .highlighted {
+  background-color: #d4d4d4;
+}
+
+    </style>
+  </head>
+  <body>
+  <main class="markdown-body">
+
+    <h1>Hello</h1>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>Highlights information that users should take into account, even when skimming.</p>
+</div>
+<div class="markdown-alert markdown-alert-tip"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>Optional information to help a user be more successful.</p>
+</div>
+<div class="markdown-alert markdown-alert-important"><p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p><p>Crucial information necessary for users to succeed.</p>
+</div>
+<div class="markdown-alert markdown-alert-warning"><p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p><p>Critical content demanding immediate user attention due to potential risks.</p>
+</div>
+<div class="markdown-alert markdown-alert-caution"><p class="markdown-alert-title"><svg class="octicon octicon-stop mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p><p>Negative potential consequences of an action.</p>
+</div>
+<hr />
+<p><strong>Advertisement 😃</strong></p>
+<ul>
+<li><strong><a href="https://nodeca.github.io/pica/demo/">pica</a></strong> - high quality and fast image
+resize in browser.</li>
+<li><strong><a href="https://github.com/nodeca/babelfish/">babelfish</a></strong> - developer friendly
+i18n with plurals support and easy syntax.</li>
+</ul>
+<p>You will like those projects!</p>
+<hr />
+<h1>h1 Heading 😎</h1>
+<h2>h2 Heading</h2>
+<h3>h3 Heading</h3>
+<h4>h4 Heading</h4>
+<h5>h5 Heading</h5>
+<h6>h6 Heading</h6>
+<h2>Horizontal Rules</h2>
+<hr />
+<hr />
+<hr />
+<h2>Typographic replacements</h2>
+<p>Enable typographer option to see result.</p>
+<p>(c) (C) (r) (R) (tm) (TM) (p) (P) +-</p>
+<p>test.. test... test..... test?..... test!....</p>
+<p>!!!!!! ???? ,, -- ---</p>
+<p>&quot;Smartypants, double quotes&quot; and 'single quotes'</p>
+<h2>Emphasis</h2>
+<p><strong>This is bold text</strong></p>
+<p><strong>This is bold text</strong></p>
+<p><em>This is italic text</em></p>
+<p><em>This is italic text</em></p>
+<p><s>Strikethrough</s></p>
+<h2>Blockquotes</h2>
+<blockquote>
+<p>Blockquotes can also be nested...</p>
+<blockquote>
+<p>...by using additional greater-than signs right next to each other...</p>
+<blockquote>
+<p>...or with spaces between arrows.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2>Lists</h2>
+<p>Unordered</p>
+<ul>
+<li>Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code></li>
+<li>Sub-lists are made by indenting 2 spaces:
+<ul>
+<li>Marker character change forces new list start:
+<ul>
+<li>Ac tristique libero volutpat at</li>
+</ul>
+<ul>
+<li>Facilisis in pretium nisl aliquet</li>
+</ul>
+<ul>
+<li>Nulla volutpat aliquam velit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Very easy!</li>
+</ul>
+<p>Ordered</p>
+<ol>
+<li>
+<p>Lorem ipsum dolor sit amet</p>
+</li>
+<li>
+<p>Consectetur adipiscing elit</p>
+</li>
+<li>
+<p>Integer molestie lorem at massa</p>
+</li>
+<li>
+<p>You can use sequential numbers...</p>
+</li>
+<li>
+<p>...or keep all the numbers as <code>1.</code></p>
+</li>
+</ol>
+<p>Start numbering with offset:</p>
+<ol start="57">
+<li>foo</li>
+<li>bar</li>
+</ol>
+<h2>React</h2>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-jsx"><span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#1E754F;--shiki-dark:#4D9375"> *</span><span style="color:#1E754F;--shiki-dark:#4D9375"> as</span><span style="color:#B07D48;--shiki-dark:#BD976A"> React</span><span style="color:#1E754F;--shiki-dark:#4D9375"> from</span><span style="color:#B5695999;--shiki-dark:#C98A7D99"> '</span><span style="color:#B56959;--shiki-dark:#C98A7D">react</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#B5695999;--shiki-dark:#C98A7D99"> '</span><span style="color:#B56959;--shiki-dark:#C98A7D">./App.css</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">import</span><span style="color:#B07D48;--shiki-dark:#BD976A"> Hello</span><span style="color:#1E754F;--shiki-dark:#4D9375"> from</span><span style="color:#B5695999;--shiki-dark:#C98A7D99"> '</span><span style="color:#B56959;--shiki-dark:#C98A7D">./components/Hello</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">const</span><span style="color:#B07D48;--shiki-dark:#BD976A"> logo</span><span style="color:#999999;--shiki-dark:#666666"> =</span><span style="color:#59873A;--shiki-dark:#80A665"> require</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">./logo.svg</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">function</span><span style="color:#59873A;--shiki-dark:#80A665"> App</span><span style="color:#999999;--shiki-dark:#666666">()</span><span style="color:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">  return</span><span style="color:#999999;--shiki-dark:#666666"> (</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">    &#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">div</span><span style="color:#B07D48;--shiki-dark:#BD976A"> className</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">App</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">      &#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">div</span><span style="color:#B07D48;--shiki-dark:#BD976A"> className</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">App-header</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">        &#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">img</span><span style="color:#B07D48;--shiki-dark:#BD976A"> src</span><span style="color:#999999;--shiki-dark:#666666">={</span><span style="color:#B07D48;--shiki-dark:#BD976A">logo</span><span style="color:#999999;--shiki-dark:#666666">}</span><span style="color:#B07D48;--shiki-dark:#BD976A"> className</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">App-logo</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B07D48;--shiki-dark:#BD976A"> alt</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">logo</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666"> /></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">        &#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">h2</span><span style="color:#999999;--shiki-dark:#666666">></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">Welcome to React</span><span style="color:#999999;--shiki-dark:#666666">&#x3C;/</span><span style="color:#1E754F;--shiki-dark:#4D9375">h2</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">      &#x3C;/</span><span style="color:#1E754F;--shiki-dark:#4D9375">div</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">      &#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">p</span><span style="color:#B07D48;--shiki-dark:#BD976A"> className</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">App-intro</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">        To get started, edit </span><span style="color:#999999;--shiki-dark:#666666">&#x3C;</span><span style="color:#1E754F;--shiki-dark:#4D9375">code</span><span style="color:#999999;--shiki-dark:#666666">></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">src/App.tsx</span><span style="color:#999999;--shiki-dark:#666666">&#x3C;/</span><span style="color:#1E754F;--shiki-dark:#4D9375">code</span><span style="color:#999999;--shiki-dark:#666666">></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> and save to reload.</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">      &#x3C;/</span><span style="color:#1E754F;--shiki-dark:#4D9375">p</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">      &#x3C;</span><span style="color:#998418;--shiki-dark:#B8A965">Hello</span><span style="color:#B07D48;--shiki-dark:#BD976A"> name</span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">TypeScript</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666"> /></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">    &#x3C;/</span><span style="color:#1E754F;--shiki-dark:#4D9375">div</span><span style="color:#999999;--shiki-dark:#666666">></span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">  );</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">export</span><span style="color:#1E754F;--shiki-dark:#4D9375"> default</span><span style="color:#B07D48;--shiki-dark:#BD976A"> App</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"></span></code></pre>
+<h1>Hello World</h1>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-js"><span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A">console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">line1</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // highlighted</span></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A">console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">line2</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A">console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">line3</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // highlighted</span></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A">console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">line4</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span><span style="color:#A0ADA0;--shiki-dark:#758575DD"> // highlighted</span></span>
+<span class="line"></span></code></pre>
+<h1>Twoslash</h1>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark twoslash lsp" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">interface</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2E8F82;--shiki-dark:#5DA994"><span class="twoslash-hover">Todo<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">interface</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2E8F82;--shiki-dark:#5DA994">Todo</span></span></code></span></span></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">{</span></span>
+<span class="line"><span style="color:#393A34;--shiki-dark:#DBD7CAEE">  </span><span style="color:#B07D48;--shiki-dark:#BD976A"><span class="twoslash-hover">title<span class="twoslash-hover-info"><code><span class="line"><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B07D48;--shiki-dark:#BD976A">property</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#B07D48;--shiki-dark:#BD976A">Todo</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#B07D48;--shiki-dark:#BD976A">title</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">: </span><span style="color:#B07D48;--shiki-dark:#BD976A">string</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#2E8F82;--shiki-dark:#5DA994">string</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">const </span><span style="color:#B07D48;--shiki-dark:#BD976A"><span class="twoslash-hover">todo<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">const </span><span style="color:#B07D48;--shiki-dark:#BD976A">todo</span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#2E8F82;--shiki-dark:#5DA994">Readonly</span><span style="color:#999999;--shiki-dark:#666666">&#x3C;</span><span style="color:#2E8F82;--shiki-dark:#5DA994">Todo</span><span style="color:#999999;--shiki-dark:#666666">></span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#2E8F82;--shiki-dark:#5DA994"><span class="twoslash-hover">Readonly<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">type</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2E8F82;--shiki-dark:#5DA994">Readonly</span><span style="color:#999999;--shiki-dark:#666666">&#x3C;</span><span style="color:#2E8F82;--shiki-dark:#5DA994">T</span><span style="color:#999999;--shiki-dark:#666666">></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">{</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#AB5959;--shiki-dark:#CB7676">readonly</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">[</span><span style="color:#2E8F82;--shiki-dark:#5DA994">P</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#AB5959;--shiki-dark:#CB7676">in</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#AB5959;--shiki-dark:#CB7676">keyof</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2E8F82;--shiki-dark:#5DA994">T</span><span style="color:#999999;--shiki-dark:#666666">]: </span><span style="color:#2E8F82;--shiki-dark:#5DA994">T</span><span style="color:#999999;--shiki-dark:#666666">[</span><span style="color:#2E8F82;--shiki-dark:#5DA994">P</span><span style="color:#999999;--shiki-dark:#666666">];</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">}</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">&#x3C;</span><span style="color:#2E8F82;--shiki-dark:#5DA994"><span class="twoslash-hover">Todo<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">interface</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#2E8F82;--shiki-dark:#5DA994">Todo</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">> =</span><span style="color:#AB5959;--shiki-dark:#CB7676"> </span><span style="color:#999999;--shiki-dark:#666666">{</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">  </span><span style="color:#998418;--shiki-dark:#B8A965"><span class="twoslash-hover">title<span class="twoslash-hover-info"><code><span class="line"><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B07D48;--shiki-dark:#BD976A">property</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#59873A;--shiki-dark:#80A665">title</span><span style="color:#999999;--shiki-dark:#666666">:</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#B07D48;--shiki-dark:#BD976A">string</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">Delete inactive users</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">,</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">};</span></span><div class="twoslash-meta-line">     <span class="twoslash-popover"><div class="twoslash-popover-arrow"></div><code><span class="line"><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B07D48;--shiki-dark:#BD976A">property</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#59873A;--shiki-dark:#80A665">title</span><span style="color:#999999;--shiki-dark:#666666">:</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#B07D48;--shiki-dark:#BD976A">string</span></span></code></span></div><span class="line"></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A"><span class="twoslash-hover">todo<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">const </span><span style="color:#B07D48;--shiki-dark:#BD976A">todo</span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#2E8F82;--shiki-dark:#5DA994">Readonly</span><span style="color:#999999;--shiki-dark:#666666">&#x3C;</span><span style="color:#2E8F82;--shiki-dark:#5DA994">Todo</span><span style="color:#999999;--shiki-dark:#666666">></span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#B07D48;--shiki-dark:#BD976A"><span class="twoslash-error">title</span></span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#999999;--shiki-dark:#666666">=</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">Hello</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">;</span></span><div class="twoslash-meta-line twoslash-error-line">Cannot assign to 'title' because it is a read-only property.</div><span class="line"></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A"><span class="twoslash-hover">Number<span class="twoslash-hover-info"><code><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">var </span><span style="color:#B07D48;--shiki-dark:#BD976A">Number</span><span style="color:#999999;--shiki-dark:#666666">: </span><span style="color:#2E8F82;--shiki-dark:#5DA994">NumberConstructor</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665"><span class="twoslash-hover">isNaN<span class="twoslash-hover-info"><code><span class="line"><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B07D48;--shiki-dark:#BD976A">method</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE"> </span><span style="color:#B07D48;--shiki-dark:#BD976A">NumberConstructor</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">isNaN</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B07D48;--shiki-dark:#BD976A">number</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">: </span><span style="color:#B07D48;--shiki-dark:#BD976A">unknown</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#393A34;--shiki-dark:#DBD7CAEE">: </span><span style="color:#B07D48;--shiki-dark:#BD976A">boolean</span></span></code></span></span></span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#2F798A;--shiki-dark:#4C9A91">123</span><span style="color:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line"></span><div class="twoslash-meta-line">        <span class="twoslash-completions"><ul><li><span><span class="twoslash-completions-matched">i</span>sFinite</span></li><li><span><span class="twoslash-completions-matched">i</span>sInteger</span></li><li><span><span class="twoslash-completions-matched">i</span>sNaN</span></li><li><span><span class="twoslash-completions-matched">i</span>sSafeInteger</span></li></ul></span></div></code></pre>
+<h2>Diff</h2>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark has-diff" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-js"><span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">export</span><span style="color:#AB5959;--shiki-dark:#CB7676"> function</span><span style="color:#59873A;--shiki-dark:#80A665"> foo</span><span style="color:#999999;--shiki-dark:#666666">()</span><span style="color:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line diff remove"><span style="color:#B07D48;--shiki-dark:#BD976A">  console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">hewwo</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line diff add"><span style="color:#B07D48;--shiki-dark:#BD976A">  console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#B56959;--shiki-dark:#C98A7D">hello</span><span style="color:#B5695999;--shiki-dark:#C98A7D99">'</span><span style="color:#999999;--shiki-dark:#666666">);</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">}</span></span>
+<span class="line"></span></code></pre>
+<h2>Syntax highlighting</h2>
+<pre class="shiki shiki-themes vitesse-light vitesse-dark" style="background-color:#ffffff;--shiki-dark-bg:#121212;color:#393a34;--shiki-dark:#dbd7caee" tabindex="0"><code class="language-js"><span class="line"><span style="color:#AB5959;--shiki-dark:#CB7676">var</span><span style="color:#59873A;--shiki-dark:#80A665"> foo</span><span style="color:#999999;--shiki-dark:#666666"> =</span><span style="color:#AB5959;--shiki-dark:#CB7676"> function</span><span style="color:#999999;--shiki-dark:#666666"> (</span><span style="color:#B07D48;--shiki-dark:#BD976A">bar</span><span style="color:#999999;--shiki-dark:#666666">)</span><span style="color:#999999;--shiki-dark:#666666"> {</span></span>
+<span class="line"><span style="color:#1E754F;--shiki-dark:#4D9375">  return</span><span style="color:#B07D48;--shiki-dark:#BD976A"> bar</span><span style="color:#AB5959;--shiki-dark:#CB7676">++</span><span style="color:#999999;--shiki-dark:#666666">;</span></span>
+<span class="line"><span style="color:#999999;--shiki-dark:#666666">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B07D48;--shiki-dark:#BD976A">console</span><span style="color:#999999;--shiki-dark:#666666">.</span><span style="color:#59873A;--shiki-dark:#80A665">log</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#59873A;--shiki-dark:#80A665">foo</span><span style="color:#999999;--shiki-dark:#666666">(</span><span style="color:#2F798A;--shiki-dark:#4C9A91">5</span><span style="color:#999999;--shiki-dark:#666666">));</span></span>
+<span class="line"></span></code></pre>
+<h2>Tables</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>path to data files to supply the data that will be passed into templates.</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>engine to be used for processing templates. Handlebars is the default.</td>
+</tr>
+<tr>
+<td>ext</td>
+<td>extension to be used for dest files.</td>
+</tr>
+</tbody>
+</table>
+<p>Right aligned columns</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Option</th>
+<th style="text-align:right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">data</td>
+<td style="text-align:right">path to data files to supply the data that will be passed into templates.</td>
+</tr>
+<tr>
+<td style="text-align:right">engine</td>
+<td style="text-align:right">engine to be used for processing templates. Handlebars is the default.</td>
+</tr>
+<tr>
+<td style="text-align:right">ext</td>
+<td style="text-align:right">extension to be used for dest files.</td>
+</tr>
+</tbody>
+</table>
+<h2>Links</h2>
+<p><a href="http://dev.nodeca.com">link text</a></p>
+<p><a href="http://nodeca.github.io/pica/demo/" title="title text!">link with title</a></p>
+<p>Autoconverted link <a href="https://github.com/nodeca/pica">https://github.com/nodeca/pica</a> (enable linkify to see)</p>
+<h2>Images</h2>
+<p><img src="https://octodex.github.com/images/minion.png" alt="Minion" />
+<img src="https://octodex.github.com/images/stormtroopocat.jpg" alt="Stormtroopocat" title="The Stormtroopocat" /></p>
+<p>Like links, Images also have a footnote style syntax</p>
+<p><img src="https://octodex.github.com/images/dojocat.jpg" alt="Alt text" title="The Dojocat" /></p>
+<p>With a reference later in the document defining the URL location:</p>
+<h2>Plugins</h2>
+<p>The killer feature of <code>markdown-it</code> is very effective support of
+<a href="https://www.npmjs.org/browse/keyword/markdown-it-plugin">syntax plugins</a>.</p>
+<h3><a href="https://github.com/markdown-it/markdown-it-emoji">Emojies</a></h3>
+<blockquote>
+<p>Classic markup: 😉 :crush: 😢 :tear: 😆 😋</p>
+<p>Shortcuts (emoticons): 😃 😦 😎 😉</p>
+</blockquote>
+<p>see <a href="https://github.com/markdown-it/markdown-it-emoji#change-output">how to change output</a> with twemoji.</p>
+<h3><a href="https://github.com/markdown-it/markdown-it-sub">Subscript</a> / <a href="https://github.com/markdown-it/markdown-it-sup">Superscript</a></h3>
+<ul>
+<li>19<sup>th</sup></li>
+<li>H<sub>2</sub>O</li>
+</ul>
+<h3><a href="https://github.com/markdown-it/markdown-it-ins">&lt;ins&gt;</a></h3>
+<p><ins>Inserted text</ins></p>
+<h3><a href="https://github.com/markdown-it/markdown-it-mark">&lt;mark&gt;</a></h3>
+<p><mark>Marked text</mark></p>
+<h3><a href="https://github.com/markdown-it/markdown-it-footnote">Footnotes</a></h3>
+<p>Footnote 1 link<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.</p>
+<p>Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
+<p>Inline footnote<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> definition.</p>
+<p>Duplicated footnote reference<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2:1]</a></sup>.</p>
+<h3><a href="https://github.com/markdown-it/markdown-it-deflist">Definition lists</a></h3>
+<dl>
+<dt>Term 1</dt>
+<dd>
+<p>Definition 1
+with lazy continuation.</p>
+</dd>
+<dt>Term 2 with <em>inline markup</em></dt>
+<dd>
+<p>Definition 2</p>
+<pre><code>  { some code, part of Definition 2 }
+</code></pre>
+<p>Third paragraph of definition 2.</p>
+</dd>
+</dl>
+<p><em>Compact style:</em></p>
+<dl>
+<dt>Term 1</dt>
+<dd>Definition 1</dd>
+<dt>Term 2</dt>
+<dd>Definition 2a</dd>
+<dd>Definition 2b</dd>
+</dl>
+<h3><a href="https://github.com/markdown-it/markdown-it-abbr">Abbreviations</a></h3>
+<p>This is HTML abbreviation example.</p>
+<p>It converts &quot;HTML&quot;, but keep intact partial entries like &quot;xxxHTMLyyy&quot; and so on.</p>
+<p>*[HTML]: Hyper Text Markup Language</p>
+<h3><a href="https://github.com/markdown-it/markdown-it-container">Custom containers</a></h3>
+<p>::: warning
+<em>here be dragons</em>
+:::</p>
+<hr class="footnotes-sep" />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Footnote <strong>can have markup</strong></p>
+<p>and multiple paragraphs. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Footnote text. <a href="#fnref2" class="footnote-backref">↩︎</a> <a href="#fnref2:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>Text of inline footnote <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+  </main>
+  </body>
+  </html>

@@ -106,24 +106,71 @@ Start numbering with offset:
 57. foo
 1. bar
 
-## Code
+## React
 
-Inline `code`
+```jsx {1,2}
+import * as React from 'react';
+import './App.css';
+import Hello from './components/Hello';
 
-Indented code
+const logo = require('./logo.svg');
 
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
+function App() {
+  return (
+    <div className='App'>
+      <div className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
+        <h2>Welcome to React</h2>
+      </div>
+      <p className='App-intro'>
+        To get started, edit <code>src/App.tsx</code> and save to reload.
+      </p>
+      <Hello name='TypeScript' />
+    </div>
+  );
+}
 
-Block code "fences"
-
+export default App;
 ```
-Sample text here...
+
+# Hello World
+
+```js {3,4}
+console.log('line1'); // highlighted
+console.log('line2');
+console.log('line3'); // highlighted
+console.log('line4'); // highlighted
 ```
 
-Syntax highlighting
+# Twoslash
+
+```ts
+// @errors: 2540
+interface Todo {
+  title: string;
+}
+
+const todo: Readonly<Todo> = {
+  title: 'Delete inactive users',
+  //  ^?
+};
+
+todo.title = 'Hello';
+
+Number.isNaN(123);
+//      ^|
+```
+
+## Diff
+
+```js
+export function foo() {
+  console.log('hewwo'); // [!code --]
+  console.log('hello'); // [!code ++]
+}
+```
+
+## Syntax highlighting
 
 ```js
 var foo = function (bar) {
