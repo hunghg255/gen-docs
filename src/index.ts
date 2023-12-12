@@ -14,7 +14,6 @@ import MarkdownItGitHubAlerts from 'markdown-it-github-alerts';
 import MarkdownItIns from 'markdown-it-ins';
 import MarkdownItMark from 'markdown-it-mark';
 import MarkdownItTable from 'markdown-it-multimd-table';
-import Shikiji from 'markdown-it-shikiji';
 import MarkdownItSub from 'markdown-it-sub';
 import MarkdownItSup from 'markdown-it-sup';
 import {
@@ -22,6 +21,8 @@ import {
   // ...
 } from 'shikiji-transformers';
 import { rendererRich, transformerTwoSlash } from 'shikiji-twoslash';
+
+import markdownItShikiji from './markdown-it-shikiji/markdown-it-shikiji';
 
 (async () => {
   const md = new MarkdownIt({
@@ -31,8 +32,8 @@ import { rendererRich, transformerTwoSlash } from 'shikiji-twoslash';
   });
 
   md.use(
-    await Shikiji({
-      highlightLines: false,
+    await markdownItShikiji({
+      highlightLines: true,
       themes: {
         light: 'vitesse-light',
         dark: 'vitesse-dark',
