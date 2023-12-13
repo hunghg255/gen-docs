@@ -170,6 +170,10 @@
   box-shadow: var(--twoslash-popup-shadow);
 }
 
+.twoslash-hover-info * {
+  white-space: nowrap;
+}
+
 .twoslash .twoslash-hover:hover .twoslash-hover-info {
   opacity: 1;
   pointer-events: auto;

@@ -11,4 +11,5 @@ export default defineBuildConfig({
     //   minify: false,
     // },
   },
+  failOnWarn: false,
 });

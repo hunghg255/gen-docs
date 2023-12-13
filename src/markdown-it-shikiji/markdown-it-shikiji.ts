@@ -81,6 +81,8 @@ function setup(
       transformers: [],
     };
 
+    codeOptions.transformers.push(...options.transformers);
+
     if (highlightLines) {
       const lines = parseHighlightLines(attrs);
       if (lines) {
